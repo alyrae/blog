@@ -1,29 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <main id="app">
+    <header-nav></header-nav>
+  </main>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import { Vue, Component } from 'vue-property-decorator'
+import headerNav from './components/header-nav.vue'
 
 @Component({
   components: {
-    HelloWorld,
+    headerNav,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  public activeName: string = ''
+
+  public select(e: any) {
+    console.log(e)
+  }
+}
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url('./styles/global.less');
+
+
 </style>
+
