@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './font/iconfont'
+// import './font/iconfont'
 import {
   Container,
   Header,
@@ -17,7 +17,11 @@ import {
   Popover,
   Tabs,
   TabPane,
+  Drawer,
 } from 'element-ui'
+import layoutMain from './components/layout-main.vue'
+
+Vue.component('layout-main', layoutMain)
 
 Vue.use(Container)
 Vue.use(Header)
@@ -32,6 +36,7 @@ Vue.use(Input)
 Vue.use(Popover)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Drawer)
 
 
 Vue.config.productionTip = false;

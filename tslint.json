@@ -15,7 +15,12 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [true, "single"],
-    "semicolon": [false, "always"],
-    "no-console": [false, "log", "error"]
+    "semicolon": false,
+    "no-console": false,
+    "arrow-parens": false,
+    "member-access": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-shadowed-variable": false,
+    "member-ordering": false
   }
 }

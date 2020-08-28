@@ -30,6 +30,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import customMenu from './custom-menu.vue'
+import {State} from 'vuex-class'
 
 @Component({
   components: {
@@ -37,12 +38,17 @@ import customMenu from './custom-menu.vue'
   },
 })
 export default class HeaderMenu extends Vue {
-  public sm: number = 6
-  public md: number = 6
-  public lg: number = 5
-  public xl: number = 4
-  public active: string = '0'
-  public search: string = ''
+  @State(state => state.layout.sm)
+  sm!: number
+  @State(state => state.layout.md)
+  md!: number
+  @State(state => state.layout.lg)
+  lg!: number
+  @State(state => state.layout.xl)
+  xl!: number
+
+  active: string = '0'
+  search: string = ''
 
   private select(e: any) {
     console.log(e)
@@ -57,6 +63,7 @@ nav {
   box-shadow: 0 2px 8px #ddd;
   height: 60px;
   position: relative;
+  background: #fff
 }
 h1 {
   @media screen and (max-width: @sm) {

@@ -1,0 +1,108 @@
+<template>
+  <el-row class="layout-container">
+    <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="layout-aside-l layout-aside">
+      <slot name="aside-l"></slot>
+    </el-col>
+    <el-col :sm="24-sm" :md="22-md" :lg="22-lg" :xl="22-xl" class="layout-content">
+      <slot name="content"></slot>
+    </el-col>
+    <el-col :md="2" :lg="2" :xl="2" class="layout-aside-r layout-aside">
+      <slot name="aside-r"></slot>
+    </el-col>
+    <el-drawer
+      direction="ltr"
+      :visible.sync="showDrawer"
+      :show-close="false"
+      :modal="true"
+      :withHeader="false"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      @open="openDrawer"
+      @close="closeDrawer"
+      @closed="closedDrawer"
+    >
+      123132
+    </el-drawer>
+    <div class="small-aside-menu" @click="showDrawer = true">
+      <svg slot="reference" viewBox="64 64 896 896" focusable="false" class="aside-menu-icon" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
+    </div>
+  </el-row>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import {State} from 'vuex-class'
+
+@Component
+export default class LayoutMain extends Vue {
+  @State(state => state.layout.sm)
+  sm!: number
+  @State(state => state.layout.md)
+  md!: number
+  @State(state => state.layout.lg)
+  lg!: number
+  @State(state => state.layout.xl)
+  xl!: number
+
+  showDrawer: boolean = false
+
+  openDrawer() {
+    (<HTMLElement> (this.$root.$el)).style.cssText = `transform: translateX(30%)`
+    document.body.style.cssText = 'overflow: hidden'
+  }
+
+  closeDrawer() {
+    (<HTMLElement> (this.$root.$el)).style.cssText = ''
+  }
+
+  closedDrawer() {
+    document.body.style.cssText = ''
+  }
+}
+</script>
+
+<style lang="less">
+@import url('../styles/common');
+
+.layout-container {
+  padding-top: 50px
+}
+.layout-aside-l {  
+  @media screen and (max-width: @sm) {
+    display: none
+  }
+}
+.layout-aside-r {  
+  @media screen and (max-width: @md) {
+    display: none
+  }
+}
+.layout-content {
+  // background: red
+}
+.small-aside-menu {
+  position: fixed;
+  left: 0;
+  top: 70px;
+  width: 40px;
+  height: 40px;
+  box-shadow: 2px 0 8px #ddd;
+  display: none;
+  @media screen and (max-width: @sm){
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
+}
+.aside-menu-icon {
+  // position: relative;
+}
+.v-modal {
+  background: rgba(0,0,0,.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+</style>
