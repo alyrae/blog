@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 // import './font/iconfont'
+import 'element-ui/lib/theme-chalk/display.css';
 import {
   Container,
   Header,
@@ -18,6 +19,8 @@ import {
   Tabs,
   TabPane,
   Drawer,
+  Card,
+  Calendar,
 } from 'element-ui'
 import layoutMain from './components/layout-main.vue'
 
@@ -37,6 +40,8 @@ Vue.use(Popover)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Drawer)
+Vue.use(Card)
+Vue.use(Calendar)
 
 
 Vue.config.productionTip = false;

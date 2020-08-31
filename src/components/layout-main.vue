@@ -1,13 +1,17 @@
 <template>
-  <el-row class="layout-container">
-    <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="layout-aside-l layout-aside">
-      <slot name="aside-l"></slot>
+  <el-row class="layout-container" type="flex">
+    <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="layout-aside-l hidden-xs-only">
+      <div class="layout-aside-l-wrapper">
+        <slot name="aside-l"></slot>
+      </div>
     </el-col>
-    <el-col :sm="24-sm" :md="22-md" :lg="22-lg" :xl="22-xl" class="layout-content">
+    <el-col :sm="24-sm" :md="24-md" :lg="24-2*lg" :xl="24-2*xl" class="layout-content">
       <slot name="content"></slot>
     </el-col>
-    <el-col :md="2" :lg="2" :xl="2" class="layout-aside-r layout-aside">
-      <slot name="aside-r"></slot>
+    <el-col :lg="lg" :xl="xl" class="layout-aside-r hidden-md-and-down">
+      <!-- <div class="layout-aside-r-wrapper"> -->
+        <slot name="aside-r"></slot>
+      <!-- </div> -->
     </el-col>
     <el-drawer
       direction="ltr"
@@ -24,7 +28,7 @@
       123132
     </el-drawer>
     <div class="small-aside-menu" @click="showDrawer = true">
-      <svg slot="reference" viewBox="64 64 896 896" focusable="false" class="aside-menu-icon" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
+      <svg slot="reference" viewBox="64 64 896 896" focusable="false" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
     </div>
   </el-row>
 </template>
@@ -65,20 +69,24 @@ export default class LayoutMain extends Vue {
 @import url('../styles/common');
 
 .layout-container {
-  padding-top: 50px
+  padding-top: 50px;
+  position: relative;
 }
-.layout-aside-l {  
-  @media screen and (max-width: @sm) {
-    display: none
-  }
+.layout-aside-l {
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
-.layout-aside-r {  
-  @media screen and (max-width: @md) {
-    display: none
-  }
+.layout-aside-l-wrapper {
+  max-width: 190px;
 }
+// .layout-aside-r-wrapper {
+//   max-width: 285px;
+// }
 .layout-content {
-  // background: red
+  @media screen and (max-width: @sm) {
+    margin: 0 10px
+  }
 }
 .small-aside-menu {
   position: fixed;
@@ -93,16 +101,5 @@ export default class LayoutMain extends Vue {
     justify-content: center;
     align-items: center
   }
-}
-.aside-menu-icon {
-  // position: relative;
-}
-.v-modal {
-  background: rgba(0,0,0,.5);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 </style>
