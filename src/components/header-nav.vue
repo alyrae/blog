@@ -66,6 +66,8 @@ nav {
   background: #fff
 }
 h1 {
+  font-weight: normal;
+  font-size: 16px;
   @media screen and (max-width: @sm) {
     text-align: center;
     a {

@@ -4,10 +4,16 @@ import Home from '../views/home.vue'
 
 Vue.use(VueRouter);
 
-const routes: RouteConfig[] = [
+export const routes: RouteConfig[] = [
   {
     path: '/',
+    name: '标签1',
     component: Home,
+  },
+  {
+    path: '/edit',
+    name: '标签2',
+    component: () => import('../views/edit.vue'),
   },
 ];
 

@@ -27,7 +27,7 @@ export default class RightSide extends Vue {
   }
 
   created() {
-    this.i = this.hash.findIndex(item => item.hash === this.$route.hash)
+    this.i = this.$route.hash ? this.hash.findIndex(item => item.hash === this.$route.hash) : 0
   }
 
   slideToHash(hash: string) {
