@@ -14,6 +14,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import marked from 'marked'
 import hljs from 'highlight.js'
+import 'highlight.js/styles/rainbow.css'
 
 @Component
 export default class Edit extends Vue {
@@ -21,8 +22,8 @@ export default class Edit extends Vue {
 
   get parsedHtml(): string {
     const res = marked(this.content, {
-      highlight(code, lang, callback) {
-        callback(new Error(), hljs.highlightAuto(code).value)
+      highlight(code, lang) {
+        return hljs.highlightAuto(code).value
       },
     }).replace(/<th>/g, '<th align="left">')
     return res
