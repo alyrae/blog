@@ -15,6 +15,11 @@ export const routes: RouteConfig[] = [
     name: '标签2',
     component: () => import('../views/edit.vue'),
   },
+  {
+    path: '/login',
+    name: '标签3',
+    component: () => import('../views/login.vue'),
+  },
 ];
 
 const router = new VueRouter({

@@ -21,6 +21,10 @@ import {
   Drawer,
   Card,
   Calendar,
+  Select,
+  Form,
+  FormItem,
+  Button,
 } from 'element-ui'
 import layoutMain from './components/layout-main.vue'
 
@@ -42,6 +46,10 @@ Vue.use(TabPane)
 Vue.use(Drawer)
 Vue.use(Card)
 Vue.use(Calendar)
+Vue.use(Select)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Button)
 
 
 Vue.config.productionTip = false;

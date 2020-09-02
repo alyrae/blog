@@ -34,6 +34,7 @@ export default class Menu extends Vue {
 
 <style lang="less" scoped>
 .el-menu {
-  border: none
+  border: none;
+  padding-right: 55px;
 }
 </style>

@@ -1,43 +1,51 @@
 <template>
-  <el-row class="layout-container" type="flex">
-    <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="layout-aside-l hidden-xs-only">
-      <div class="layout-aside-l-wrapper">
-        <slot name="aside-l"></slot>
+  <div class="container">
+    <header-nav></header-nav>
+    <el-row class="layout-container" type="flex">
+      <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="layout-aside-l hidden-xs-only">
+        <div class="layout-aside-l-wrapper">
+          <slot name="aside-l"></slot>
+        </div>
+      </el-col>
+      <el-col :sm="24-sm" :md="24-md" :lg="24-2*lg" :xl="24-2*xl" class="layout-content">
+        <slot name="content"></slot>
+      </el-col>
+      <el-col :lg="lg" :xl="xl" class="layout-aside-r hidden-md-and-down">
+        <!-- <div class="layout-aside-r-wrapper"> -->
+          <slot name="aside-r"></slot>
+        <!-- </div> -->
+      </el-col>
+      <el-drawer
+        direction="ltr"
+        :visible.sync="showDrawer"
+        :show-close="false"
+        :modal="true"
+        :withHeader="false"
+        :modal-append-to-body="true"
+        :append-to-body="true"
+        @open="openDrawer"
+        @close="closeDrawer"
+        @closed="closedDrawer"
+      >
+        123132
+      </el-drawer>
+      <div class="small-aside-menu" @click="showDrawer = true">
+        <svg slot="reference" viewBox="64 64 896 896" focusable="false" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
       </div>
-    </el-col>
-    <el-col :sm="24-sm" :md="24-md" :lg="24-2*lg" :xl="24-2*xl" class="layout-content">
-      <slot name="content"></slot>
-    </el-col>
-    <el-col :lg="lg" :xl="xl" class="layout-aside-r hidden-md-and-down">
-      <!-- <div class="layout-aside-r-wrapper"> -->
-        <slot name="aside-r"></slot>
-      <!-- </div> -->
-    </el-col>
-    <el-drawer
-      direction="ltr"
-      :visible.sync="showDrawer"
-      :show-close="false"
-      :modal="true"
-      :withHeader="false"
-      :modal-append-to-body="true"
-      :append-to-body="true"
-      @open="openDrawer"
-      @close="closeDrawer"
-      @closed="closedDrawer"
-    >
-      123132
-    </el-drawer>
-    <div class="small-aside-menu" @click="showDrawer = true">
-      <svg slot="reference" viewBox="64 64 896 896" focusable="false" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
-    </div>
-  </el-row>
+    </el-row>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import {State} from 'vuex-class'
+import headerNav from '@/components/header-nav.vue'
 
-@Component
+@Component({
+  components: {
+    headerNav,
+  },
+})
 export default class LayoutMain extends Vue {
   @State(state => state.layout.sm)
   sm!: number

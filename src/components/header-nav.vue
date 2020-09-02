@@ -1,9 +1,9 @@
 <template>
-  <el-row tag="nav">
-    <el-col :sm="sm" :md="md" :lg="lg" :xl="xl" class="col-logo">
+  <el-row tag="nav" type="flex">
+    <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :xl="xl" class="col-logo">
       <h1><a href="/"><img src="../assets/logo.png" alt="" class="logo">description</a></h1>
     </el-col>
-    <el-col :sm="24-sm" :md="24-md" :lg="24-lg" :xl="24-xl" class="col-other">
+    <el-col :sm="23-sm" :md="23-md" :lg="23-lg" :xl="23-xl" class="col-other">
       <div class="search-box">
         <el-input 
           v-model="search"
@@ -18,12 +18,17 @@
       </div>
       <custom-menu mode="horizontal" @select="select"/>
     </el-col>
-    <el-popover
+    <el-col :span="1" class="col-avatar">
+      <div class="avatar-box">
+        <img src="https://images.daqinjia.cn/wen/5b8aed18-e2d9-11ea-bb0a-00e18c22a005.png" alt="" class="avatar">
+      </div>
+    </el-col>
+    <!-- <el-popover
       placement="bottom"      
     >
       <svg slot="reference" viewBox="64 64 896 896" focusable="false" class="small-menu" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
       <custom-menu @select="select"/>
-    </el-popover>
+    </el-popover> -->
   </el-row>
 </template>
 
@@ -38,6 +43,8 @@ import {State} from 'vuex-class'
   },
 })
 export default class HeaderMenu extends Vue {
+  @State(state => state.layout.xs)
+  xs!: number
   @State(state => state.layout.sm)
   sm!: number
   @State(state => state.layout.md)
@@ -69,9 +76,9 @@ h1 {
   font-weight: normal;
   font-size: 16px;
   @media screen and (max-width: @sm) {
-    text-align: center;
+    // text-align: center;
     a {
-      padding-left: 0px !important;
+      // padding-left: 0px !important;
     }
   }
   a {
@@ -111,6 +118,19 @@ h1 {
   @media screen and (max-width: @sm) {
     display: block
   }
+}
+.col-avatar {
+  min-width: 50px
+}
+.avatar-box {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover
 }
 </style>
 

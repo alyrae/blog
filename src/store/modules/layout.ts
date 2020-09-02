@@ -4,6 +4,7 @@ import {IRootState} from '../index'
 export type mode = 'white' | 'gray'
 
 export interface ILayoutState {
+  xs: number
   sm: number
   md: number
   lg: number
@@ -13,6 +14,7 @@ export interface ILayoutState {
 
 // header-nav的布局
 const state: ILayoutState = {
+  xs: 23,
   sm: 6,
   md: 6,
   lg: 5,

@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts">
+// TODO: 滑动同步目录位置
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import {IhashItem} from '@/types'
 
