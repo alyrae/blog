@@ -17,8 +17,10 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/sign',
-    name: '标签3',
     component: () => import('../views/sign/sign.vue'),
+    meta: {
+      notHeaderMenu: true,
+    },
     children: [
       {
         path: '',
@@ -39,6 +41,9 @@ export const routes: RouteConfig[] = [
   {
     path: '*',
     name: 'notFound',
+    meta: {
+      notHeaderMenu: true,
+    },
     component: () => import('../views/notFound.vue'),
   },
 ];

@@ -27,8 +27,15 @@ export default class Menu extends Vue {
   })
   private mode!: 'horizontal' | 'vertical'
 
-  route: Iroute[] = routes.map(item => ({path: item.path, name: item.name}))
-
+  route: Iroute[] = routes.reduce<Iroute[]>((total, value) => {
+    if (!value.meta || !value.meta.notHeaderMenu) {
+      total.push({
+        path: value.path,
+        name: value.name,
+      })
+    }
+    return total
+  }, [])
 }
 </script>
 

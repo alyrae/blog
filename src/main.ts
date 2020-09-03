@@ -25,6 +25,12 @@ import {
   Form,
   FormItem,
   Button,
+  Avatar,
+  Table,
+  TableColumn,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
 } from 'element-ui'
 import layoutMain from './components/layout-main.vue'
 
@@ -50,6 +56,12 @@ Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Button)
+Vue.use(Avatar)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
 
 
 Vue.config.productionTip = false;

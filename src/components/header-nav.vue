@@ -19,23 +19,34 @@
       <custom-menu mode="horizontal" @select="select"/>
     </el-col>
     <el-col :span="1" class="col-avatar">
-      <div class="avatar-box">
-        <img src="https://images.daqinjia.cn/wen/5b8aed18-e2d9-11ea-bb0a-00e18c22a005.png" alt="" class="avatar">
-      </div>
+      <el-dropdown trigger="click" @command="command">
+        <el-avatar :size="40" :src="userInfo.avatar" class="avatar-box">
+          <el-avatar icon="el-icon-user-solid"></el-avatar>
+        </el-avatar>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item 
+            v-for="item in dropdownList"
+            :key="item.key"
+            v-bind="item"
+          >{{item.key}}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </el-col>
-    <!-- <el-popover
-      placement="bottom"      
-    >
-      <svg slot="reference" viewBox="64 64 896 896" focusable="false" class="small-menu" data-icon="unordered-list" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0zm0 284a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg>
-      <custom-menu @select="select"/>
-    </el-popover> -->
   </el-row>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import customMenu from './custom-menu.vue'
-import {State} from 'vuex-class'
+import {State, Getter, Mutation} from 'vuex-class'
+import { IUserInfo } from '@/store/modules/user';
+
+
+interface IDropdown {
+  key: string
+  divided: boolean,
+  command: string
+}
 
 @Component({
   components: {
@@ -53,12 +64,62 @@ export default class HeaderMenu extends Vue {
   lg!: number
   @State(state => state.layout.xl)
   xl!: number
+  @State(state => state.user.userInfo)
+  userInfo!: IUserInfo
+  @Getter
+  readonly isLogin!: boolean
 
   active: string = '0'
   search: string = ''
 
+  @Mutation
+  logout!: () => void
+
+  get dropdownList(): IDropdown[] {
+    if (this.isLogin) {
+      return [
+        {
+          key: `signed in as ${this.userInfo.nickname}`,
+          divided: false,
+          command: '/',
+        },
+        {
+          key: 'settings',
+          divided: true,
+          command: '/settings',
+        },
+        {
+          key: 'sign out',
+          divided: false,
+          command: 'signout',
+        },
+      ]
+    } else {
+      return [
+        {
+          key: 'sign in',
+          divided: false,
+          command: '/sign/in',
+        },
+        {
+          key: 'sign up',
+          divided: false,
+          command: '/sign/up',
+        },
+      ]
+    }
+  }
+
   private select(e: any) {
     console.log(e)
+  }
+
+  command(command: string) {
+    if (command === 'signout') {
+      this.logout()
+    } else {
+      this.$router.push(command)
+    }
   }
 }
 </script>
@@ -120,12 +181,12 @@ h1 {
   }
 }
 .col-avatar {
-  min-width: 50px
+  min-width: 50px;
+  padding-top: 10px
 }
 .avatar-box {
-  width: 40px;
-  height: 40px;
-  margin-top: 10px;
+  cursor: pointer;
+  background: none
 }
 .avatar {
   width: 100%;
