@@ -16,9 +16,30 @@ export const routes: RouteConfig[] = [
     component: () => import('../views/edit.vue'),
   },
   {
-    path: '/login',
+    path: '/sign',
     name: '标签3',
-    component: () => import('../views/login.vue'),
+    component: () => import('../views/sign/sign.vue'),
+    children: [
+      {
+        path: '',
+        redirect: 'in',
+      },
+      {
+        path: 'in',
+        name: 'login',
+        component: () => import('../views/sign/in.vue'),
+      },
+      {
+        path: 'up',
+        name: 'register',
+        component: () => import('../views/sign/up.vue'),
+      },
+    ],
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: () => import('../views/notFound.vue'),
   },
 ];
 
