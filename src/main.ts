@@ -31,6 +31,8 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Tag,
+  Divider,
 } from 'element-ui'
 import layoutMain from './components/layout-main.vue'
 
@@ -62,6 +64,8 @@ Vue.use(TableColumn)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+Vue.use(Tag)
+Vue.use(Divider)
 
 
 Vue.config.productionTip = false;

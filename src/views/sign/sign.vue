@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="sign-container">
     <el-card class="login-card" shadow="hover">
       <el-tabs v-model="name">
         <el-tab-pane label="login" name="login"></el-tab-pane>
@@ -32,7 +32,7 @@ export default class Login extends Vue {
 <style lang="less" scoped>
 @import url('../../styles/common');
 
-.container {
+.sign-container {
   background: #eee;
   height: 100vh;
   display: flex;

@@ -1,5 +1,6 @@
 <template>
   <main id="app">
+    <header-nav v-if="!$route.meta.notHeaderNav"></header-nav>
     <router-view></router-view>
   </main>
 </template>
@@ -10,7 +11,11 @@ import headerNav from './components/header-nav.vue'
 import { mode } from '@/store/modules/layout';
 import {State, Mutation, Action} from 'vuex-class'
 
-@Component
+@Component({
+  components: {
+    headerNav,
+  },
+})
 export default class App extends Vue {
   activeName: string = ''
 

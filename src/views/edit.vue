@@ -1,9 +1,17 @@
 <template>
-  <div class="container">
+  <div class="edit-container">
     <el-row class="row">
       <el-col :span="12" class="col">   
         <edit-menu :spaceCount.sync="spaceCount" @submit="submit"></edit-menu>
-        <textarea class="textarea" v-model="content" @keydown.tab="tabkeydown" ref="textarea"></textarea>
+        <textarea 
+          class="textarea" 
+          v-model="content" 
+          @keydown.ctrl.89="recovery"
+          @keydown.ctrl.90="revoke"
+          @keydown.tab="tabkeydown" 
+          @input="input"
+          ref="textarea"
+        ></textarea>
       </el-col>
       <el-col :span="12" v-html="parsedHtml" class="note-view">
 
@@ -33,6 +41,7 @@ export default class Edit extends Vue {
   readonly textarea!: HTMLTextAreaElement
 
   get parsedHtml(): string {
+    console.log(this.content)
     // TODO: 脚注的renderer优化 内容过多时编译content为html卡
     return marked(this.content, {
       highlight(code, lang) {
@@ -43,17 +52,41 @@ export default class Edit extends Vue {
   }
 
   tabkeydown(e: KeyboardEvent) {
-    const {selectionStart, selectionEnd, value} = this.textarea
-    // TODO: ctrl + z 撤销无效
-    this.textarea.value = value.slice(0, selectionStart) + ' '.repeat(this.spaceCount) + value.slice(selectionEnd)
-    this.textarea.setSelectionRange(selectionStart + this.spaceCount, selectionStart + this.spaceCount)
-    this.content = this.textarea.value // note: 阻止默认事件不触发input事件 需手动更新content
+    // const {selectionStart, selectionEnd, value} = this.textarea
+    // // TODO: ctrl + z 撤销无效
+    // this.textarea.value = value.slice(0, selectionStart) + ' '.repeat(this.spaceCount) + value.slice(selectionEnd)
+    // this.textarea.setSelectionRange(selectionStart + this.spaceCount, selectionStart + this.spaceCount)
+    // this.content = this.textarea.value // note: 阻止默认事件不触发input事件 需手动更新content
+    // e.preventDefault()
+
+    const event = new InputEvent('input', {
+      inputType: 'insertText',
+      data: ' ',
+      dataTransfer: null,
+      isComposing: false,
+    })
+    this.textarea.dispatchEvent(event)
     e.preventDefault()
+  }
+
+  input(e: any) {
+    console.log('input', e)
+  }
+
+  // ctrl + z
+  revoke() {
+    console.log('撤销')
+  }
+
+  // ctrl + y
+  recovery() {
+    console.log('恢复')
   }
 
   submit() {
     console.log(this.content)
   }
+
 }
 </script>
 
@@ -61,7 +94,7 @@ export default class Edit extends Vue {
 @import url('../styles/common');
 @import url('../styles/markdown');
 
-.container {
+.edit-container {
   width: 100%;
   height: 100vh;
 }
@@ -78,7 +111,6 @@ export default class Edit extends Vue {
 }
 .textarea {
   width: 100%;
-  // height: 100%;
   flex: 1;
   overflow: auto;
   font-size: 18px;

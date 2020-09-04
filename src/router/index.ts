@@ -7,18 +7,35 @@ Vue.use(VueRouter);
 export const routes: RouteConfig[] = [
   {
     path: '/',
-    name: '标签1',
+    name: 'home',
     component: Home,
   },
   {
     path: '/edit',
-    name: '标签2',
+    name: 'edit',
     component: () => import('../views/edit.vue'),
+    meta: {
+      notHeaderNav: true,
+    },
+  },
+  {
+    path: '/articles',
+    name: 'articles',
+    component: () => import('../views/articleList.vue'),
+  },
+  {
+    path: '/article/:article_id(\\d+)',
+    name: 'article',
+    component: () => import('../views/articleDetail.vue'),
+    meta: {
+      notHeaderMenu: true,
+    },
   },
   {
     path: '/sign',
     component: () => import('../views/sign/sign.vue'),
     meta: {
+      notHeaderNav: true,
       notHeaderMenu: true,
     },
     children: [
@@ -30,11 +47,17 @@ export const routes: RouteConfig[] = [
         path: 'in',
         name: 'login',
         component: () => import('../views/sign/in.vue'),
+        meta: {
+          notHeaderNav: true,
+        },
       },
       {
         path: 'up',
         name: 'register',
         component: () => import('../views/sign/up.vue'),
+        meta: {
+          notHeaderNav: true,
+        },
       },
     ],
   },
@@ -42,6 +65,7 @@ export const routes: RouteConfig[] = [
     path: '*',
     name: 'notFound',
     meta: {
+      notHeaderNav: true,
       notHeaderMenu: true,
     },
     component: () => import('../views/notFound.vue'),
@@ -53,5 +77,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  next()
+})
 
 export default router;

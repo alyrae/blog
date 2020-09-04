@@ -16,3 +16,15 @@
 .light-shadow {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
 }
+
+.el {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.eln(@n: 2) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @n;
+}

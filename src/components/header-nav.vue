@@ -1,5 +1,5 @@
 <template>
-  <el-row tag="nav" type="flex">
+  <el-row tag="nav" type="flex" class="header-nav">
     <el-col :xs="xs" :sm="sm" :md="md" :lg="lg" :xl="xl" class="col-logo">
       <h1><a href="/"><img src="../assets/logo.png" alt="" class="logo">description</a></h1>
     </el-col>
@@ -192,6 +192,12 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover
+}
+.header-nav {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2;
 }
 </style>
 

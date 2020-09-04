@@ -43,7 +43,7 @@ export default class RightSide extends Vue {
 .index-wrapper {  
   border-left: 1px solid #eee;
   position: sticky;
-  top: 50px;
+  top: 110px;
   margin-left: 50px;
 }
 .index-item {
