@@ -7,6 +7,7 @@
           class="textarea" 
           v-model="content" 
           @keydown.tab="tabkeydown"
+          @input="input"
           ref="textarea"
         ></textarea>
       </el-col>
@@ -21,6 +22,7 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 import editMenu from '@/components/edit-menu.vue'
+import Debounce from '@/decorators/debounce'
 
 @Component({
   components: {
@@ -32,29 +34,19 @@ export default class Edit extends Vue {
   parsedHtml: string = ''
   spaceCount: number = 2
 
+  @Debounce(400)
+  input(e: any) {
+    this.parsedHtml = marked(this.content, {
+      highlight(code, lang) {
+        return hljs.highlightAuto(code).value
+      },
+      breaks: true,
+    }).replace(/<th>/g, '<th align="left">')
+  }
+
+
   @Ref()
   readonly textarea!: HTMLTextAreaElement
-
-  debounce(cb: any, time: number) {
-    let timer: number | null = null
-    return (...param: any[]) => {
-      if (timer) { clearTimeout(timer) }
-      timer = setTimeout(() => {
-        cb.call(this, ...param)
-      }, time)
-    }
-  }
-
-  created() {
-    this.$watch('content', this.debounce(() => {
-      this.parsedHtml = marked(this.content, {
-        highlight(code, lang) {
-          return hljs.highlightAuto(code).value
-        },
-        breaks: true,
-      }).replace(/<th>/g, '<th align="left">')
-    }, 400))
-  }
 
   tabkeydown(e: KeyboardEvent) {
     document.execCommand('insertHTML', false, ' '.repeat(this.spaceCount))

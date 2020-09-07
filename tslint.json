@@ -21,6 +21,7 @@
     "member-access": false,
     "no-angle-bracket-type-assertion": false,
     "no-shadowed-variable": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "only-arrow-functions": false
   }
 }

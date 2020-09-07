@@ -83,14 +83,19 @@ export default class HeaderMenu extends Vue {
           divided: false,
           command: '/',
         },
-        {
-          key: 'settings',
-          divided: true,
-          command: '/settings',
-        },
+        // {
+        //   key: 'settings',
+        //   divided: true,
+        //   command: '/settings',
+        // },
+        // {
+        //   key: 'sign out',
+        //   divided: false,
+        //   command: 'signout',
+        // },
         {
           key: 'sign out',
-          divided: false,
+          divided: true,
           command: 'signout',
         },
       ]
