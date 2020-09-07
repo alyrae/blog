@@ -6,10 +6,7 @@
         <textarea 
           class="textarea" 
           v-model="content" 
-          @keydown.ctrl.89="recovery"
-          @keydown.ctrl.90="revoke"
           @keydown.tab="tabkeydown" 
-          @input="input"
           ref="textarea"
         ></textarea>
       </el-col>
@@ -52,35 +49,9 @@ export default class Edit extends Vue {
   }
 
   tabkeydown(e: KeyboardEvent) {
-    // const {selectionStart, selectionEnd, value} = this.textarea
-    // // TODO: ctrl + z 撤销无效
-    // this.textarea.value = value.slice(0, selectionStart) + ' '.repeat(this.spaceCount) + value.slice(selectionEnd)
-    // this.textarea.setSelectionRange(selectionStart + this.spaceCount, selectionStart + this.spaceCount)
-    // this.content = this.textarea.value // note: 阻止默认事件不触发input事件 需手动更新content
-    // e.preventDefault()
-
-    const event = new InputEvent('input', {
-      inputType: 'insertText',
-      data: ' ',
-      dataTransfer: null,
-      isComposing: false,
-    })
-    this.textarea.dispatchEvent(event)
+    document.execCommand('insertHTML', false, ' '.repeat(this.spaceCount))
+    this.content = this.textarea.value // note: 阻止默认事件不触发input事件 需手动更新content
     e.preventDefault()
-  }
-
-  input(e: any) {
-    console.log('input', e)
-  }
-
-  // ctrl + z
-  revoke() {
-    console.log('撤销')
-  }
-
-  // ctrl + y
-  recovery() {
-    console.log('恢复')
   }
 
   submit() {
