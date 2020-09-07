@@ -6,19 +6,17 @@
         <textarea 
           class="textarea" 
           v-model="content" 
-          @keydown.tab="tabkeydown" 
+          @keydown.tab="tabkeydown"
           ref="textarea"
         ></textarea>
       </el-col>
-      <el-col :span="12" v-html="parsedHtml" class="note-view">
-
-      </el-col>
+      <el-col :span="12" v-html="parsedHtml" class="note-view"></el-col>
     </el-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Ref } from 'vue-property-decorator'
+import { Vue, Component, Ref, Watch } from 'vue-property-decorator'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
@@ -31,33 +29,42 @@ import editMenu from '@/components/edit-menu.vue'
 })
 export default class Edit extends Vue {
   content: string = ''
-
-  spaceCount: number = 2 // tab键替换空格的个数
+  parsedHtml: string = ''
+  spaceCount: number = 2
 
   @Ref()
   readonly textarea!: HTMLTextAreaElement
 
-  get parsedHtml(): string {
-    console.log(this.content)
-    // TODO: 脚注的renderer优化 内容过多时编译content为html卡
-    return marked(this.content, {
-      highlight(code, lang) {
-        return hljs.highlightAuto(code).value
-      },
-      breaks: true,
-    }).replace(/<th>/g, '<th align="left">')
+  debounce(cb: any, time: number) {
+    let timer: number | null = null
+    return (...param: any[]) => {
+      if (timer) { clearTimeout(timer) }
+      timer = setTimeout(() => {
+        cb.call(this, ...param)
+      }, time)
+    }
+  }
+
+  created() {
+    this.$watch('content', this.debounce(() => {
+      this.parsedHtml = marked(this.content, {
+        highlight(code, lang) {
+          return hljs.highlightAuto(code).value
+        },
+        breaks: true,
+      }).replace(/<th>/g, '<th align="left">')
+    }, 400))
   }
 
   tabkeydown(e: KeyboardEvent) {
     document.execCommand('insertHTML', false, ' '.repeat(this.spaceCount))
-    this.content = this.textarea.value // note: 阻止默认事件不触发input事件 需手动更新content
+    this.content = this.textarea.value
     e.preventDefault()
   }
 
   submit() {
     console.log(this.content)
   }
-
 }
 </script>
 
