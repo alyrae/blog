@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue'
+import Home from '../views/articleList.vue'
 
 Vue.use(VueRouter);
 
@@ -17,11 +17,6 @@ export const routes: RouteConfig[] = [
     meta: {
       notHeaderNav: true,
     },
-  },
-  {
-    path: '/articles',
-    name: 'articles',
-    component: () => import('../views/articleList.vue'),
   },
   {
     path: '/article/:article_id(\\d+)',

@@ -12,7 +12,7 @@
           <div class="time">2020-08-12</div>
         </div>
       </el-col>
-      <el-col class="img-section" @click.native.stop="previewPic">
+      <el-col class="img-section">
         <img src="" alt="" class="article-img">
       </el-col>
     </el-row>
@@ -25,12 +25,7 @@ import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class ArticleOverview extends Vue {
-  previewPic() {
-    console.log(1)
-  }
-
   toDetail() {
-    console.log(2)
     this.$router.push(`/article/12`)
   }
 }

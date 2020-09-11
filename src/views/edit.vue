@@ -35,7 +35,7 @@ export default class Edit extends Vue {
   spaceCount: number = 2
 
   @Debounce(400)
-  input(e: any) {
+  input() {
     this.parsedHtml = marked(this.content, {
       highlight(code, lang) {
         return hljs.highlightAuto(code).value
@@ -93,7 +93,6 @@ export default class Edit extends Vue {
   outline: none;
 }
 .note-view {
-  background: #fcfaf2;
   height: 100%;
   overflow-y: auto;
   color: #333;

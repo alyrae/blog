@@ -3,7 +3,9 @@
     <!-- 最新 标签 -->
     <left-side slot="aside-l"></left-side>
     <template>
-      <article v-html="parsedHtml" class="note-view"></article>
+      <el-card shadow="never">
+        <article v-html="parsedHtml" class="note-view"></article>
+      </el-card>
     </template>
     <right-side slot="aside-r" :hash="hash"></right-side>
   </layout-main>
@@ -58,7 +60,6 @@ export default class Home extends Vue {
   }
 
   get parsedHtml(): string {
-    // TODO: 脚注的renderer优化 内容过多时编译content为html卡
     return marked(this.content, {
       highlight(code, lang) {
         return hljs.highlightAuto(code).value

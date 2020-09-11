@@ -17,12 +17,6 @@ import {State, Mutation, Action} from 'vuex-class'
   },
 })
 export default class App extends Vue {
-  activeName: string = ''
-
-  select(e: any) {
-    console.log(e)
-  }
-
   created() {
     this.changeMode('white')
   }
